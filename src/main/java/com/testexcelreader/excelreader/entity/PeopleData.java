@@ -1,11 +1,12 @@
 package com.testexcelreader.excelreader.entity;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
-import com.fasterxml.jackson.annotation.JsonKey;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.Date;
 
@@ -21,8 +22,10 @@ public class PeopleData {
     @JsonAlias("Project ID")
     private String projectId;
     @JsonAlias({"Resource Name"})
+    @NotNull
     private String resourceName;
     @JsonAlias({"Email"})
+    @Email
     private String email;
     @JsonAlias({"LDAP"})
     private String ldap;
@@ -42,9 +45,9 @@ public class PeopleData {
     private String locationCountry;
     private String primarySkills;
     private String secondarySkills;
-    @JsonAlias({"Delivery Start Date ","Delivery Start Date"})
+    @JsonAlias("Delivery Start Date")
     private String deliveryStartDate;
-    @JsonAlias({"Delivery End Date ","Delivery End Date"})
+    @JsonAlias("Delivery End Date")
     private String deliveryEndDate;
 
     public PeopleData() {
