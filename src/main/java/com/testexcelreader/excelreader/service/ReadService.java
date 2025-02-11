@@ -77,13 +77,16 @@ public class ReadService {
             PeopleData data=objectMapper.convertValue(objectJson,PeopleData.class);
             peopleDataList.add(data);
         }
-//        List<PeopleData> existingPeopleData=this.peopleDataRepository.findAll();
-//        List<String> existingEmailAndPidList= existingPeopleData.stream().map(peopleData -> peopleData.getEmail()+"-"+peopleData.getpId()).toList();
+        List<PeopleData> existingPeopleData=this.peopleDataRepository.findAll();
+        List<String> existingEmailAndPidList= existingPeopleData.stream().map(peopleData -> peopleData.getEmail()+"-"+peopleData.getpId()).toList();
 
-//        List<PeopleData> filteredNewUserList=peopleDataList.stream().filter(peopleData -> !existingEmailAndPidList.contains(peopleData.getEmail()+"-"+peopleData.getpId())).toList();
-        if(!peopleDataList.isEmpty()) {
-            this.peopleDataRepository.saveAll(peopleDataList);
+        List<PeopleData> filteredNewUserList=peopleDataList.stream().filter(peopleData -> !existingEmailAndPidList.contains(peopleData.getEmail()+"-"+peopleData.getpId())).toList();
+        if(!filteredNewUserList.isEmpty()) {
+            this.peopleDataRepository.saveAll(filteredNewUserList);
         }
+//        if(!peopleDataList.isEmpty()) {
+//            this.peopleDataRepository.saveAll(peopleDataList);
+//        }
     }
 
     private boolean findHeaderRow(Sheet sheet, String keyword){
@@ -127,5 +130,9 @@ public class ReadService {
             updatedUserdata= this.peopleDataRepository.save(data);
         }
         return updatedUserdata;
+    }
+
+    public PeopleData getPeopleDataById(Long peopleId) {
+        return this.peopleDataRepository.findById(peopleId).orElse(null);
     }
 }

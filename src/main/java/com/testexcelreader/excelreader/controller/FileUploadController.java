@@ -57,4 +57,15 @@ public class FileUploadController {
                     .body("Data was not found for the given id");
         }
     }
+
+    @GetMapping("getData/{peopleId}")
+    public ResponseEntity<PeopleData> getPeopleData(@PathVariable Long peopleId){
+        PeopleData dataFound=service.getPeopleDataById(peopleId);
+        if(dataFound!=null) {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(dataFound);
+        }else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
 }
