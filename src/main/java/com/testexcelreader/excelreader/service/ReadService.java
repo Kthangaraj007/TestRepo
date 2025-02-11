@@ -127,6 +127,7 @@ public class ReadService {
         Optional<PeopleData> peopleDataToBeUpdated=this.peopleDataRepository.findById(peopleId);
         PeopleData updatedUserdata=null;
         if(peopleDataToBeUpdated.isPresent()){
+            data.setPeopleId(peopleId);
             updatedUserdata= this.peopleDataRepository.save(data);
         }
         return updatedUserdata;
